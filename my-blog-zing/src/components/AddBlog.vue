@@ -1,7 +1,7 @@
 <template>
   <div class="add-blog">
     <h2>添加博客</h2>
-    <form>
+    <form v-if="!submmited">
       <label>博客标题</label>
       <input type="text" v-model="blog.title" required/>
 
@@ -27,7 +27,9 @@
       <!--v-on:click.prevent:关键字prevent阻止刷新页面-->
       <button v-on:click.prevent="post">添加博客</button>
     </form>
-    <hr/>
+    <div v-if="submmited">
+      <h3>你的博客发布成功！</h3>
+    </div>
 
     <div id="preview">
       <h3>博客总览</h3>
@@ -58,7 +60,8 @@
           categories:[],
           author:""
         },
-        authors:["路明非","芬格尔","陈墨瞳","凯撒.加图索","楚子航"]
+        authors:["路明非","芬格尔","陈墨瞳","凯撒.加图索","楚子航"],
+        submmited:false
       }
     },
     methods:{
@@ -70,6 +73,7 @@
         })
           .then(function (data) {
             console.log(data);
+            this.submmited = true;
           })
   }
     }
